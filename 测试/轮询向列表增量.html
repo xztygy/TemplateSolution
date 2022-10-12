@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<script type="text/javascript" src="js/jquery-3.4.1.js"></script>
+		<link rel="stylesheet" href="style/main.css" type="text/css">
+		<title>轮询向列表增量</title>
+	</head>
+	<body>
+		<div class="box">
+			<!-- <ul id="ulBox"></ul> -->
+
+			<div class="main_ti marginTop50">
+				<ul class="main_tu">
+					<li>
+						<p class="person_r4"><a name="person_speak">群组发言</a></p>
+					</li>
+					<li></li>
+				</ul>
+			</div>
+			<table border="0" cellpadding="0" cellspacing="0" class="table_4">
+				<thead>
+					<tr>
+						<th width="12%">发送时间</th>
+						<th width="46%">消息内容</th>
+						<th width="15%">发送者</th>
+						<th width="15%">接收者</th>
+						<th width="12%">采集时间</th>
+
+					</tr>
+				</thead>
+				<tbody id="ulBox">
+
+
+				</tbody>
+			</table>
+		</div>
+		<script type="text/javascript">
+			const ul = document.getElementById('ulBox')
+			var array = [
+				            {"sendTime":"<span>2020-05-22 04:32:07</span>",
+				                "content":                "<video width='320' height='240' controls><source src='./resource/_b_675_2d7f7973709aa6df58161b675888f225.mp4' type='video/mp4'/></video>",
+				                "sender":"<span>【华助会】区块云开车机器人😍(1334655884)</span>",
+				                "recipient":  "<span> 东南亚福利开车俱乐部(1210721988)</span>",
+				                "acquisition":"<span>2021-08-25 16:37:10</span>"
+				            },
+				
+				            {"sendTime":"<span>2020-05-22 04:32:07</span>",
+				                "content":                "<video width='320' height='240' controls><source src='./resource/_b_352_4f27f242cd9ec7ee7ab8dc00d0d07583.mp4' type='video/mp4'/></video>",
+				                "sender":"<span>【华助会】区块云开车机器人😍(1334655884)</span>",
+				                "recipient":  "<span> 干干干妹子视频(1225859521)</span>",
+				                "acquisition":"<span>2021-07-13 06:01:42</span>"
+				            },
+				
+				            {"sendTime":"<span>2020-05-22 04:32:07</span>",
+				                "content":                "<video width='320' height='240' controls><source src='./resource/_b_118_259157ad6a15dabe23fe97dd661c417c.mp4' type='video/mp4'/></video>",
+				                "sender":"<span>【华助会】区块云开车机器人😍(1334655884)</span>",
+				                "recipient":  "<span> 抖音🌸成人电影讨论群-约炮(1210516923)</span>",
+				                "acquisition":"<span>2021-08-13 15:10:09</span>"
+				            }
+				
+			];
+
+			var arrayTitle = ["sendTime", "content", "sender", "recipient", "acquisition"];
+			// 一次展示多少数据
+			const once = 1;
+			// 应执行数量
+			const number = array.length / once;
+			// 已执行数量
+			var areadyNum = 0;
+			// 数据往里面加入
+			for (var i = 0; i < array.length; i++) {
+				const tdagment = document.createDocumentFragment();
+
+				for (var j = 0; j < arrayTitle.length; j++) {
+					const td = document.createElement("td")
+					td.innerHTML = array[i][arrayTitle[j]]
+					tdagment.appendChild(td);
+				}
+				array[i] = tdagment;
+			}
+
+			function addItem() {
+				//        创建一个虚拟节点占位
+				const fragment = document.createDocumentFragment();
+				// 生成once个tr标签,放入虚拟节点
+				for (var i = 0; i < once; i++) {
+					const tr = document.createElement("tr")
+					var col = array[areadyNum * once + i];
+					tr.appendChild(col);
+					fragment.appendChild(tr);
+				}
+				// 将节点的放入ul标签中
+				ul.appendChild(fragment)
+				// 一次执行完成追加1
+				areadyNum++;
+				// 查询是否循环到最后执行数
+				continueDo();
+			}
+
+			function continueDo() {
+				if (areadyNum < number) {
+					window.requestAnimationFrame(addItem);
+				}
+			}
+			continueDo();
+		</script>
+	</body>
+</html>

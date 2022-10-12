@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+		<script type="text/javascript" src="js/jquery-3.4.1.js"></script>
+		<link rel="stylesheet" href="style/main.css" type="text/css">
+		<style type="text/css">
+			#pages {
+				text-align: center;
+				color: #666;
+				padding: 10px 0px;
+			}
+
+			#pages a {
+				font-size: 15px;
+				margin: 0 3px;
+				text-align: center;
+				line-height: 2;
+				display: inline-block;
+				width: 60px;
+				height: 30px;
+				text-decoration: none;
+				background-color: #1795bb;
+				border: 1px solid #1cbeea;
+
+			}
+
+			#pages a:hover {
+				background-color: #28c8ab;
+				color: #fff;
+			}
+
+			#pages a:active {
+				/* background-color: #28c8ab; */
+				/* color: #fff; */
+			}
+
+			#pages a:link {
+				/* color: #0055ff; */
+			}
+
+			.mdin_page {
+				background-color: #28c8ab;
+				color: #fff;
+			}
+
+			#pages a:focus {
+				color: #fff;
+			}
+
+			#pages a:visited {
+				/* color: #28c8ab; */
+			}
+
+			#pages strong {
+				color: #12bacc;
+				padding: 0 3px;
+				font-weight: bold;
+			}
+		</style>
+	</head>
+	<body>
+		<table border="0" cellpadding="0" cellspacing="0" class="table_4">
+			<thead>
+				<tr>
+					<th width="12%">发送时间</th>
+					<th width="46%">消息内容</th>
+					<th width="15%">发送者</th>
+					<th width="15%">接收者</th>
+					<th width="12%">采集时间</th>
+
+				</tr>
+			</thead>
+			<tbody id="pageListTableBody">
+
+			</tbody>
+		</table>
+		<div id="pages">
+		</div>
+		<script>
+			// 用户管理表格
+			var array = [{
+					"sendTime": "<span>2020-05-22 04:32:01</span>",
+					"content": "<video width='320' height='240' controls><source src='./resource/_b_675_2d7f7973709aa6df58161b675888f225.mp4' type='video/mp4'/></video>",
+					"sender": "<span>【华助会】区块云开车机器人😍(1334655884)</span>",
+					"recipient": "<span> 东南亚福利开车俱乐部(1210721988)</span>",
+					"acquisition": "<span>2021-08-25 16:37:10</span>"
+				},
+				{
+					"sendTime": "<span>2020-05-22 04:32:07</span>",
+					"content": "ABC",
+					"sender": "<span>【华助会】区块云开车机器人😍(1334655884)</span>",
+					"recipient": "<span> 东南亚福利开车俱乐部(1210721988)</span>",
+					"acquisition": "<span>2021-08-25 16:37:10</span>"
+				},
+				{
+					"sendTime": "<span>2020-05-22 04:32:07</span>",
+					"content": "DEF",
+					"sender": "<span>【华助会】区块云开车机器人😍(1334655884)</span>",
+					"recipient": "<span> 东南亚福利开车俱乐部(1210721988)</span>",
+					"acquisition": "<span>2021-08-25 16:37:10</span>"
+				}
+
+			];
+			// 所有数据
+			var pageData = [];
+			// 数据拼接后的字符串
+			var pageContent = '';
+			// 想要13条数据
+
+			for (var i = 0; i < array.length; i++) {
+				var data = '<tr>' +
+					'<td>' + array[i].sendTime + '</td>' +
+					'<td>' + array[i].content + '</td>' +
+					'<td>' + array[i].sender + '</td>' +
+					'<td>' + array[i].recipient + '</td>' +
+					'<td>' + array[i].acquisition + '</td>' +
+					'</tr>';
+				pageData.push(data);
+			}
+
+			// 数据条数
+			var dataCount = pageData.length;
+			// 每页数据条数
+			var PageSize = 1;
+			// 总页数
+			var PageCount = Math.ceil(dataCount / PageSize);
+			//当前页，默认为1。
+			var currentPage = 1;
+			// 获取页面分页dom
+			var page = getId('pages');
+
+			var pageDes = getId("pageDes")
+			// 分页按钮实现
+
+			// function turn_page() {
+			var pageN = '';
+			pageN += '<a href="#" class="prevPage">上一页</a>'
+			for (var i = 1; i <= PageCount; i++) {
+				pageN += '<a href="#" selectPage="' + i + '" >' + i + '</a>';
+			}
+			pageN += '<a href="#" class="nextPage">下一页</a>'
+			inText(page, pageN);
+			
+			// }
+
+			// 表格部分
+			var theUL = document.getElementById("pageListTableBody");
+
+			// var table = getId("table");
+			renderTable()
+
+			// 点击按钮选择分页
+			var selectPage = querAll('a[selectPage]');
+
+			console.log(selectPage)
+			for (var i = 0; i < selectPage.length; i++) {
+				// $(this).removeClass('mdin_page')
+				selectPage[i].index = selectPage[i].getAttribute('selectPage')
+				selectPage[i].addEventListener('click', function(e) {
+					// 阻止默认事件
+					e.preventDefault();
+					if (this.index != currentPage) {
+						currentPage = Number(this.index);
+						// 渲染
+						var that = this
+						renderTable(that)
+						console.log(currentPage)
+					}
+					// $(this).addClass('mdin_page')
+				})
+				console.log(selectPage[i].index);
+			}
+			// 上一页 下一页
+			var nextPage = quer(".nextPage");
+			var prevPage = quer(".prevPage");
+			if (nextPage != null) {
+				nextPage.addEventListener('click', function() {
+					if (currentPage >= PageCount) {
+						return;
+					} else {
+						currentPage += 1;
+						renderTable()
+					}
+
+				})
+				console.log("下一页监听器已挂载");
+			}
+			if (prevPage != null) {
+				prevPage.addEventListener('click', function() {
+					if (currentPage <= 1) {
+						return;
+					}
+					currentPage -= 1;
+					renderTable()
+				})
+				console.log("上一页监听器已挂载");
+			}
+
+
+			// 渲染函数
+			function renderTable(that) {
+				// 页面描述
+				// page_sum = "第<strong>" + currentPage + "</strong>页/共<strong>" + PageCount + "</strong>页";
+			
+				var selectPage = !that ? currentPage : that.getAttribute('selectPage')
+				var finalVal = PageSize * selectPage <= dataCount ? PageSize * selectPage : dataCount;
+				// table.innerHTML = '';
+				theUL.innerHTML = '';
+				pageContent = '';
+				for (var i = (selectPage - 1) * PageSize; i < finalVal; i++) {
+					pageContent += pageData[i]
+				}
+				theUL.innerHTML = pageContent;
+			}
+
+
+			function inText(obj, str) {
+				obj.innerHTML = str;
+			}
+
+
+			function getId(id) {
+				return document.getElementById(id)
+			}
+
+			function quer(val) {
+				return document.querySelector(val)
+			}
+
+			function querAll(val) {
+				return document.querySelectorAll(val)
+			}
+		</script>
+	</body>
+</html>

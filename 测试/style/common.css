@@ -1,0 +1,229 @@
+@charset "utf-8";
+
+html,body{
+	width:100%; height:100%;
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    font-family:Arial, Helvetica, sans-serif, "微软雅黑";
+}
+
+body,div,p,hr,ul,ol,li,dl,dt,dd,form,h1,h2,h3,table,tr,th,td,caption,iframe{
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
+img {
+    border: 0;
+}
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+.hidden{
+    overflow: hidden;
+}
+.clear {
+    clear: both;
+}
+.clearfix:after,.clearfix:before{
+        content: "";
+        display: table;
+    }
+.clearfix:after{
+	clear: both;
+}
+.clearfix{
+	*zoom: 1;
+}
+.font16{
+    font-size: 16px;
+}
+.font18{
+    font-size: 18px;
+}
+.font20{
+    font-size: 20px;
+}
+.color8{
+    color: #8a94a6;
+}
+.marginTop50{
+    margin-top: 50px;
+}
+.marginLeft10{
+    margin-left: 10px;
+}
+
+a {
+	color: #333;
+	text-decoration: none;
+}
+
+a:hover {
+    color:#296ad9;
+    text-decoration:none;
+}
+
+a:active, a:focus {
+    outline: none;
+	color:#1890ff;
+	text-decoration: none
+}
+table{
+    margin:0 auto;
+    border-collapse: collapse;
+}
+table td{
+   text-align: left;
+   vertical-align: top;
+}
+th,td {
+    color: #333;
+}
+table img , ul img{
+    border-radius: 3px;
+}
+
+textarea {
+    overflow: auto;
+}
+
+input, textarea , select {
+    background: #fff;
+    color: #333;  font-size:14px;
+	font-family:Arial, Helvetica, sans-serif, "微软雅黑";
+    outline: none;
+}
+input , select{
+ width:auto; 
+}
+input[type='checkbox']{
+	background:#124aa4;
+}
+
+
+
+.noborder{
+ border:none;
+ width:auto; height:auto;
+}
+
+.text {
+    width: 200px;
+    font-size: 12px;
+    padding-top: 2px;
+    float: left;
+    margin-right: 5px;
+}
+
+.file {
+    width: 60px;
+    overflow: hidden;
+    background: url(../images/submit_00.gif);
+    height: 22px; 
+    vertical-align: 3px;
+    float: left;
+}
+
+
+#page {
+    width: 1003px;
+    margin: 0 auto;
+}
+
+::-webkit-scrollbar {
+  width: 10px;     
+  height: 1px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+   -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+  background: #cdcdcd;
+}
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+  border-radius: 10px;
+  background: #f0f0f0;
+}
+
+
+@-moz-document url-prefix(http://),url-prefix(https://) {   
+scrollbar {   
+ -moz-appearance: none !important;   
+ background: #f0f0f0 !important;   
+}   
+thumb,scrollbarbutton {   
+ -moz-appearance: none !important;   
+ background-color: #cdcdcd!important;   
+}   
+
+thumb:hover,scrollbarbutton:hover {   
+ -moz-appearance: none !important;   
+ background-color: #dddddd !important;   
+}   
+scrollbarbutton {   
+ display: none !important;   
+}   
+scrollbar[orient="vertical"] {   
+min-width: 15px !important;   
+}   
+}
+
+
+
+
+ input::-webkit-input-placeholder{
+            color:#999;
+        }
+        input::-moz-placeholder{   /* Mozilla Firefox 19+ */
+            color:#999;
+        }
+        input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+            color:#999;
+        }
+        input:-ms-input-placeholder{  /* Internet Explorer 10-11 */ 
+            color:#999;
+        }
+
+
+
+@-moz-document url-prefix(http://),url-prefix(https://) {   
+    /* 滚动条颜色 */  
+    scrollbar {   
+       -moz-appearance: none !important;   
+       background: rgb(0,255,0) !important;   
+    }   
+    /* 滚动条按钮颜色 */  
+    thumb,scrollbarbutton {   
+       -moz-appearance: none !important;   
+       background-color: rgb(0,0,255) !important;   
+    }   
+    /* 鼠标悬停时按钮颜色 */  
+      
+    thumb:hover,scrollbarbutton:hover {   
+       -moz-appearance: none !important;   
+       background-color: rgb(255,0,0) !important;   
+    }   
+    /* 隐藏上下箭头 */  
+    scrollbarbutton {   
+       display: none !important;   
+    }   
+    /* 纵向滚动条宽度 */  
+    scrollbar[orient="vertical"] {   
+      min-width: 15px !important;   
+    }   
+}
+
+
+
+
